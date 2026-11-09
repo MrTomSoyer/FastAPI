@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, DateTime, func
 from database import Base
 
 class Ad(Base):
-    __tablename__ = "todos"
+    __tablename__ = "ads"
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(200), nullable=False)
