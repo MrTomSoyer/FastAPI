@@ -1,20 +1,20 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
+from typing_extensions import Annotated
 
 
 class AdvertisementBase(BaseModel):
     title: str
     description: str
-    price: int
+    price: Annotated[float, Field(gt=0)]
     author: str
-    created_at: datetime
 
 
 class AdvertisementFilter(BaseModel):
     title: str | None = None
     description: str | None = None
-    price: int | None = None
+    price: Annotated[float| None, Field(gt=0)] = None
     author: str | None = None
 
 
@@ -26,6 +26,7 @@ class GetAdResponse(AdvertisementBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    created_at: datetime
 
 
 class CreateAdResponse(GetAdResponse):
@@ -35,9 +36,8 @@ class CreateAdResponse(GetAdResponse):
 class UpdateAdRequest(BaseModel):
     title: str | None = None
     description: str | None = None
-    price: int | None = None
+    price: Annotated[float| None, Field(gt=0)] = None
     author: str | None = None
-    created_at: datetime | None = None
 
 
 class UpdateAdResponse(GetAdResponse):
